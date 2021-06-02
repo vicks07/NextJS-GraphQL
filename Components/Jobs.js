@@ -1,11 +1,14 @@
 import React from "react";
 import { Heading, Text, Box ,Badge, Img  ,SimpleGrid} from '@chakra-ui/react';
 
+import Skills from "./Skills";
+
+
 const Jobs = ({jobs}) => {
     return (
         <SimpleGrid columns={[1,2]}>
             {jobs.map((job) => {
-                let bg= "";
+                let bg= "#FAF5FF";
                 let badge = "";
                 let domain = `https://logo.clearbit.com/${job.company.websiteUrl}`
                 if(job.isFeatured){
@@ -21,12 +24,8 @@ const Jobs = ({jobs}) => {
                                 {job.title}
                             </Heading>
                             <Text align="center">Company: <Badge colorScheme="purple"> {job.company.name} </Badge></Text>
-                            <Text align="center">Skills: {job.tags.filter((tag, index) => {
-                                if(index < 3){
-                                    return true
-                                }
-                            }).map(doc => doc.name).join(" | ")} </Text>
-                            <Text align="center">Location: {job.locationNames || 'Remote'} </Text>
+                            <Skills skills={job.tags}/>
+                            <Badge variant="outline" colorScheme="green">{job.locationNames || 'Remote'} </Badge>
                         </Box>
                     </div>
                 )
